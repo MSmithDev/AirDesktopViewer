@@ -1,0 +1,21 @@
+[uDD::Log][2023-03-02 15:10:08] Start
+[uDD::Log][2023-03-02 15:10:08] OS Version    : 10.0
+[uDD::Log][2023-03-02 15:10:08] Build Number  : 19042
+[uDD::Log][2023-03-02 15:10:08] Service Pack  : 
+[uDD::Log][2023-03-02 15:10:08] Graphics Card [0] : AMD FirePro W5000
+[uDD::Log][2023-03-02 15:10:08]   > Monitor[0] : \\.\DISPLAY1
+[uDD::Log][2023-03-02 15:10:08]   > Monitor[1] : \\.\DISPLAY2
+[uDD::Log][2023-03-02 15:10:08] Graphics Card [1] : Microsoft Basic Render Driver
+[uDD::Log][2023-03-02 15:10:08] Monitor::Initialized() =>
+[uDD::Log][2023-03-02 15:10:08]     ID    : 0
+[uDD::Log][2023-03-02 15:10:08]     Size  : (1920, 1080)
+[uDD::Log][2023-03-02 15:10:08]     DPI   : (93, 93)
+[uDD::Log][2023-03-02 15:10:08]     Rot   : Landscape
+[uDD::Log][2023-03-02 15:10:08] Duplicator::Initialize() => OK.
+[uDD::Log][2023-03-02 15:10:08] Monitor::Initialized() =>
+[uDD::Log][2023-03-02 15:10:08]     ID    : 1
+[uDD::Log][2023-03-02 15:10:08]     Size  : (1920, 1080)
+[uDD::Log][2023-03-02 15:10:08]     DPI   : (93, 93)
+[uDD::Log][2023-03-02 15:10:08]     Rot   : Landscape
+[uDD::Log][2023-03-02 15:10:08] Duplicator::Initialize() => OK.
+[uDD::Log][2023-03-02 15:10:20] Stop
