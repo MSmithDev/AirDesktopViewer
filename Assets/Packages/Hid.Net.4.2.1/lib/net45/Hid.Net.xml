@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Hid.Net</name>
+    </assembly>
+    <members>
+        <member name="T:Hid.Net.HidDevice">
+            <inheritdoc cref="T:Hid.Net.IHidDevice"/>
+        </member>
+        <member name="M:Hid.Net.HidDevice.WriteAsync(System.Byte[],System.Threading.CancellationToken)">
+            <summary>
+            Write a report. The report Id comes from DefaultReportId, or the first byte in the array if the DefaultReportId is null
+            </summary>
+            <param name="data"></param>
+            <param name="cancellationToken"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Hid.Net.HidExtensions.InsertReportIdAtIndexZero(System.Byte[],System.Byte,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Shifts the array to the right and inserts the report id at index zero
+            </summary>
+        </member>
+        <member name="M:Hid.Net.HidExtensions.ToTransferResult(Hid.Net.Report,Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Converts a Report to a Tranfer result and inserts the report Id at index 0
+            </summary>
+        </member>
+        <member name="M:Hid.Net.HidExtensions.TrimFirstByte(System.Byte[],Microsoft.Extensions.Logging.ILogger)">
+            <summary>
+            Removes the first byte of the array and shifts other elements to the left
+            </summary>
+        </member>
+        <member name="T:Hid.Net.IHidDevice">
+            <inheritdoc cref="T:Device.Net.IDevice"/>
+        </member>
+        <member name="M:Hid.Net.IHidDevice.ReadReportAsync(System.Threading.CancellationToken)">
+            <summary>
+            Reads data as a cref="ReadReport"
+            </summary>
+            <param name="cancellationToken">Allows you to cancel the operation</param>
+            <returns>The cref="ReadReport"</returns>
+        </member>
+        <member name="M:Hid.Net.IHidDevice.WriteReportAsync(System.Byte[],System.Byte,System.Threading.CancellationToken)">
+            <summary>
+            Writes data and allows you to specify the report id
+            </summary>
+            <param name="data"></param>
+            <param name="reportId"></param>
+            <param name="cancellationToken">Allows you to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="M:Hid.Net.IHidDeviceHandler.ReadReportAsync(System.Threading.CancellationToken)">
+            <summary>
+            Reads data as a cref="ReadReport"
+            </summary>
+            <param name="cancellationToken">Allows you to cancel the operation</param>
+            <returns>The cref="ReadReport"</returns>
+        </member>
+        <member name="M:Hid.Net.IHidDeviceHandler.WriteReportAsync(System.Byte[],System.Byte,System.Threading.CancellationToken)">
+            <summary>
+            Writes data and allows you to specify the report id
+            </summary>
+            <param name="data"></param>
+            <param name="reportId"></param>
+            <param name="cancellationToken">Allows you to cancel the operation</param>
+            <returns></returns>
+        </member>
+        <member name="T:Hid.Net.Report">
+            <summary>
+            Represents a Hid Input or Output report. It consists of a TransferResult to/from the device, and a Report Id. An output report is for writing to the device, and input report is for reading from the device.
+            </summary>
+        </member>
+        <member name="P:Hid.Net.Report.TransferResult">
+            <summary>
+            Data Transferred to/from the device
+            </summary>
+        </member>
+        <member name="P:Hid.Net.Report.ReportId">
+            <summary>
+            The Hid report Id
+            </summary>
+        </member>
+        <member name="M:Hid.Net.Report.#ctor(System.Byte,Device.Net.TransferResult)">
+            <summary>
+            Constructs a report
+            </summary>
+        </member>
+        <member name="T:Hid.Net.Windows.IHidApiService">
+            <summary>
+            Service to handle Hid API calls. Windows oriented for now.
+            </summary>
+        </member>
+        <member name="T:Hid.Net.Windows.WindowsHidDeviceFactoryExtensions">
+            <summary>
+            Instantiates Windows Hid Factories. Use these methods as extension methods with <see cref="T:Device.Net.FilterDeviceDefinition"/> or directly to get all devices
+            </summary>
+        </member>
+        <member name="M:Hid.Net.Windows.WindowsHidDeviceFactoryExtensions.CreateWindowsHidDeviceFactory(Microsoft.Extensions.Logging.ILoggerFactory,Hid.Net.Windows.IHidApiService,System.Nullable{System.Guid},System.Nullable{System.UInt16},System.Nullable{System.UInt16},Device.Net.GetConnectedDeviceDefinitionsAsync,System.Func{Hid.Net.Report,Device.Net.TransferResult},System.Func{Device.Net.TransferResult,Hid.Net.Report},System.Func{System.Byte[],System.Byte,System.Byte[]},Hid.Net.WriteReportTransform)">
+            <summary>
+            Creates a <see cref="T:Device.Net.IDeviceFactory"/> for Windows Hid devices
+            </summary>
+            <param name="loggerFactory"><see href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory"/></param>
+            <param name="hidApiService">Abstraction for raw api level interation</param>
+            <param name="classGuid">Filters by specified class guid</param>
+            <param name="readBufferSize">Override the input report size</param>
+            <param name="writeBufferSize">Override the output report size</param>
+            <param name="getConnectedDeviceDefinitionsAsync">Override the default call for getting definitions</param>
+            <param name="readReportTransform">Allows you to manually convert the <see cref="T:Hid.Net.Report"/> in to a <see cref="T:Device.Net.TransferResult"/> so that the Report Id is not discarded on ReadAsync. By default, this inserts the Report Id at index zero of the array.</param>
+            <param name="readTransferTransform">Exposes the raw data from the device (including Report Id) on reads and allows you to format the returned <see cref="T:Device.Net.TransferResult"/></param>
+            <param name="writeTransferTransform">Given the Report Id and data supplied for the write, allow you to format the raw data that is sent to the device</param>
+            <param name="writeReportTransform">Given the data supplied, allow you to divide the data in to a <see cref="T:Hid.Net.Report"/></param>
+            <returns>A factory which enumerates and instantiates devices</returns>
+        </member>
+        <member name="M:Hid.Net.Windows.WindowsHidDeviceFactoryExtensions.CreateWindowsHidDeviceFactory(Device.Net.FilterDeviceDefinition,Microsoft.Extensions.Logging.ILoggerFactory,Hid.Net.Windows.IHidApiService,System.Nullable{System.Guid},System.Nullable{System.UInt16},System.Nullable{System.UInt16},Device.Net.GetConnectedDeviceDefinitionsAsync,System.Func{Hid.Net.Report,Device.Net.TransferResult},System.Func{Device.Net.TransferResult,Hid.Net.Report},System.Func{System.Byte[],System.Byte,System.Byte[]},Hid.Net.WriteReportTransform)">
+            <summary>
+            Creates a <see cref="T:Device.Net.IDeviceFactory"/> for Windows Hid devices
+            </summary>
+            <param name="filterDeviceDefinition">Devices must match this</param>
+            <param name="loggerFactory"><see href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory"/></param>
+            <param name="hidApiService">Abstraction for Hid interaction</param>
+            <param name="classGuid">Filters by specified class guid</param>
+            <param name="readBufferSize">Override the input report size</param>
+            <param name="writeBufferSize">Override the output report size</param>
+            <param name="writeReportTransform">Given the data supplied, allow you to divide the data in to a <see cref="T:Hid.Net.Report"/></param>
+            <param name="getConnectedDeviceDefinitionsAsync">Override the default call for getting definitions</param>
+            <param name="readReportTransform">Allows you to manually convert the <see cref="T:Hid.Net.Report"/> in to a <see cref="T:Device.Net.TransferResult"/> so that the Report Id is not discarded on ReadAsync. By default, this inserts the Report Id at index zero of the array.</param>
+            <param name="readTransferTransform">Exposes the raw data from the device (including Report Id) on reads and allows you to format the returned <see cref="T:Device.Net.TransferResult"/></param>
+            <param name="writeTransferTransform">Given the Report Id and data supplied for the write, allow you to format the raw data that is sent to the device</param>
+            <returns>A factory which enumerates and instantiates devices</returns>
+        </member>
+        <member name="M:Hid.Net.Windows.WindowsHidDeviceFactoryExtensions.CreateWindowsHidDeviceFactory(System.Collections.Generic.IEnumerable{Device.Net.FilterDeviceDefinition},Microsoft.Extensions.Logging.ILoggerFactory,Hid.Net.Windows.IHidApiService,System.Nullable{System.Guid},System.Nullable{System.UInt16},System.Nullable{System.UInt16},Device.Net.GetConnectedDeviceDefinitionsAsync,System.Func{Hid.Net.Report,Device.Net.TransferResult},System.Func{Device.Net.TransferResult,Hid.Net.Report},System.Func{System.Byte[],System.Byte,System.Byte[]},Hid.Net.WriteReportTransform)">
+            <summary>
+            Creates a factory Hid devices
+            </summary>
+            <param name="filterDeviceDefinitions">Devices must match these</param>
+            <param name="loggerFactory"><see href="https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.iloggerfactory"/></param>
+            <param name="hidApiService">Abstraction for Hid interaction</param>
+            <param name="classGuid">Filters by specified class guid</param>
+            <param name="readBufferSize">Override the input report size</param>
+            <param name="writeBufferSize">Override the output report size</param>
+            <param name="getConnectedDeviceDefinitionsAsync">Override the default call for getting definitions</param>
+            <param name="readReportTransform">Allows you to manually convert the <see cref="T:Hid.Net.Report"/> in to a <see cref="T:Device.Net.TransferResult"/> so that the Report Id is not discarded on ReadAsync. By default, this inserts the Report Id at index zero of the array.</param>
+            <param name="readTransferTransform">Exposes the raw data from the device (including Report Id) on reads and allows you to format the returned <see cref="T:Device.Net.TransferResult"/></param>
+            <param name="writeTransferTransform">Given the Report Id and data supplied for the write, allow you to format the raw data that is sent to the device</param>
+            <param name="writeReportTransform">Given the data supplied, allow you to divide the data in to a <see cref="T:Hid.Net.Report"/></param>
+            <returns>A factory which enumerates and instantiates devices</returns>
+        </member>
+    </members>
+</doc>
