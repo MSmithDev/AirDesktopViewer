@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/nSpaces_face.unity
     guid: 21b83ac4bc2e1ce499641efe3e521af9
   - enabled: 1
-    path: Assets/Scenes/nSpaces_phone.unity
+    path: Assets/Scenes/AirDesktopViewer.unity
     guid: 4591394e5c4c9c249a5ade7c9930637c
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c7a06bc4464b8ec4ab325a94d878c9b8, type: 2}
